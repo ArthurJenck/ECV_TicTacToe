@@ -11,11 +11,11 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
 
   <!-- Le titre de la page html ; 70 caractères maxi ; Sert au SEO ; S'affiche dans l'onglet du navigateur -->
-  <title>Page</title>
-  <link rel="icon" href="ImageDuTitleIci">
+  <title>TicTacToe</title>
+  <link rel="icon" href="./img/favicon.png">
   <!-- Descrition de la page avec 156 caractères au maximum -->
   <meta name="description" content="MettreLaDescriptionIci">
   <script defer src="https://kit.fontawesome.com/bcc5e6c49a.js" crossorigin="anonymous"></script>
@@ -23,7 +23,22 @@
 </head>
 
 <body>
-
+  <h1>Morpion</h1>
+  <div class="board">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <div class="game-msg-container">
+    <p class="game-msg"></p>
+    <button class="restart-btn" onclick="startGame()">Encore une petite partie ?</button>
+  </div>
 </body>
 
 </html>
