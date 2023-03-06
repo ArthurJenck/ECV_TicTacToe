@@ -74,7 +74,6 @@ const endGame = () => {
 // notre collection en tableau grave à la destructuration : [...cells]
 const checkDraw = () => {
   if ([...cells].every((cell) => !cell.classList.contains("empty"))) {
-    console.log("ici");
     winner = "draw";
     return true;
   }
