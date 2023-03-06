@@ -36,6 +36,8 @@ const swapTurns = () => {
 
 const playerClick = (cellTarget) => {
   const currentCell = cellTarget.target;
+  // Intéressant d'avoir travaillé avec les classList
+  // Tu pouvais travailler avec le innerHTML aussi
   if (currentCell.classList.contains("empty")) {
     if (isPlayerXTurn) {
       currentCell.innerHTML = `X`;
@@ -47,8 +49,7 @@ const playerClick = (cellTarget) => {
     currentCell.classList.remove("empty");
     swapTurns();
   }
-  checkWin();
-  if (checkWin()) {
+  if (checkDraw() || checkWin()) {
     endGame();
   }
 };
@@ -60,9 +61,23 @@ const endGame = () => {
       cell.classList.add("end-game-cell");
     }
   });
-  if (winner === "xplayer") {
+  if (winner === "draw") {
+    gameMsg.innerHTML = `Égalité parfaite !`;
+  } else if (winner === "xplayer") {
     gameMsg.innerHTML = `Le joueur X a gagné !`;
   } else gameMsg.innerHTML = `Le joueur O a gagné !`;
+};
+
+// Pas d'égalité dans ta partie si personne ne gagne alors X gagne !
+// Avec la technique que tu as utilisé en passant par les classes tu peux le faire comme ça
+// every ne fonctionne pas sur une NodeList qui est une collection. Pour que cela fonctionne, on doit transformer
+// notre collection en tableau grave à la destructuration : [...cells]
+const checkDraw = () => {
+  if ([...cells].every((cell) => !cell.classList.contains("empty"))) {
+    console.log("ici");
+    winner = "draw";
+    return true;
+  }
 };
 
 const checkWin = () => {
@@ -87,9 +102,11 @@ const startGame = () => {
   isPlayerXTurn = true;
   gameMsg.innerHTML = `C'est au tour du joueur X de jouer.`;
   cells.forEach((cell) => {
+    cell.classList.add("empty");
     cell.classList.remove("X-cell");
     cell.classList.remove("O-cell");
-    cell.classList.add("empty");
+    // Retirer la classe "end-game-cell" pour que les carrés noirs disparaissent
+    cell.classList.remove("end-game-cell");
     cell.removeEventListener("click", playerClick);
     cell.addEventListener("click", playerClick);
     cell.innerHTML = `X`;
