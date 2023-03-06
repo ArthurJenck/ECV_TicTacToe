@@ -51,18 +51,29 @@ const playerClick = (cellTarget) => {
   if (checkWin()) {
     endGame();
   }
+  if (!checkWin()) {
+    console.log("pas encore fini");
+    checkDraw();
+    if (checkDraw()) {
+      endGame();
+    }
+  }
 };
 
 const endGame = () => {
+  console.log(checkDraw());
+
+  if (checkDraw()) {
+    gameMsg.innerHTML = `Et c'est une égalité !`;
+  } else if (winner === "xplayer") {
+    gameMsg.innerHTML = `Le joueur X a gagné !`;
+  } else gameMsg.innerHTML = `Le joueur O a gagné !`;
   cells.forEach((cell) => {
     if (cell.classList.contains("empty")) {
       cell.classList.remove("empty");
       cell.classList.add("end-game-cell");
     }
   });
-  if (winner === "xplayer") {
-    gameMsg.innerHTML = `Le joueur X a gagné !`;
-  } else gameMsg.innerHTML = `Le joueur O a gagné !`;
 };
 
 const checkWin = () => {
@@ -83,10 +94,18 @@ const checkWin = () => {
   });
 };
 
+const checkDraw = () => {
+  const cellsArr = Array.from(cells);
+  return cellsArr.every((cell) => {
+    return !cell.classList.contains("empty");
+  });
+};
+
 const startGame = () => {
   isPlayerXTurn = true;
   gameMsg.innerHTML = `C'est au tour du joueur X de jouer.`;
   cells.forEach((cell) => {
+    cell.classList.remove("end-game-cell");
     cell.classList.remove("X-cell");
     cell.classList.remove("O-cell");
     cell.classList.add("empty");
